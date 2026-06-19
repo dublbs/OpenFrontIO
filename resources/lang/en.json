@@ -1232,7 +1232,6 @@
   },
   "streaming_now": {
     "live_count": "{count} live",
-    "more": "+{count} more on Twitch",
     "title": "Streaming Now",
     "viewers": "{count} watching",
     "watch": "Watch {name}"

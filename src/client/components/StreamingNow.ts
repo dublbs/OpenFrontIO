@@ -5,8 +5,6 @@ import { getLiveStreams } from "../Api";
 import { translateText } from "../Utils";
 
 const REFRESH_MS = 90_000; // re-fetch the served list so counts/liveness stay fresh
-const MAX_VISIBLE = 5; // keep the panel compact; link to the category for the rest
-const CATEGORY_URL = "https://www.twitch.tv/directory/category/openfront";
 
 // Watch URL for a stream: explicit `url` wins, else derive from platform + channel.
 export function watchUrl(s: LiveStream): string {
@@ -27,9 +25,10 @@ export function formatViewers(n: number): string {
   return `${(n / 1_000_000).toFixed(1)}M`;
 }
 
-// Homepage "Streaming Now" panel: a compact list of who is live playing OpenFront, fed by
-// getLiveStreams() (served JSON + bundled fallback). Stays hidden until it has live streams,
-// so the sibling news box keeps the full row when nobody is live (the common case).
+// Homepage "Streaming Now" panel: a fixed-size bubble showing who is live playing OpenFront,
+// fed by getLiveStreams() (served JSON + bundled fallback). Streamers are compact cards in a
+// horizontal slider, so the bubble never grows with the count. Stays hidden until there is a
+// live stream, so the sibling news box keeps the full row when nobody is live.
 @customElement("streaming-now")
 export class StreamingNow extends LitElement {
   @state() private streams: LiveStream[] = [];
@@ -67,15 +66,26 @@ export class StreamingNow extends LitElement {
 
   render() {
     if (this.streams.length === 0) return nothing;
-    const shown = this.streams.slice(0, MAX_VISIBLE);
-    // The "more" link goes to the Twitch category, so only count hidden Twitch streams.
-    const extra = this.streams
-      .slice(MAX_VISIBLE)
-      .filter((s) => s.platform === "twitch").length;
     const count = translateText("streaming_now.live_count", {
       count: this.streams.length,
     });
     return html`
+      <style>
+        .streaming-scroll {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+        }
+        .streaming-scroll::-webkit-scrollbar {
+          height: 6px;
+        }
+        .streaming-scroll::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.25);
+          border-radius: 9999px;
+        }
+        .streaming-scroll::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.4);
+        }
+      </style>
       <div
         class="flex flex-col bg-surface px-2 py-2 border-y border-white/10 lg:border-y-0 lg:rounded-xl lg:p-3"
       >
@@ -93,23 +103,14 @@ export class StreamingNow extends LitElement {
             >${this.streams.length}</span
           >
         </div>
-        <div class="flex flex-col gap-1.5">
-          ${shown.map((s) => this.renderRow(s))}
+        <div class="streaming-scroll flex snap-x gap-3 overflow-x-auto pb-1.5">
+          ${this.streams.map((s) => this.renderCard(s))}
         </div>
-        ${extra > 0
-          ? html`<a
-              href="${CATEGORY_URL}"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-2 text-[11px] text-white/50 transition-colors hover:text-blue-300"
-              >${translateText("streaming_now.more", { count: extra })}</a
-            >`
-          : nothing}
       </div>
     `;
   }
 
-  private renderRow(s: LiveStream) {
+  private renderCard(s: LiveStream) {
     return html`
       <a
         href="${watchUrl(s)}"
@@ -119,37 +120,42 @@ export class StreamingNow extends LitElement {
         aria-label="${translateText("streaming_now.watch", {
           name: s.displayName,
         })}"
-        class="group flex items-center gap-2 rounded-lg p-1 transition-colors hover:bg-white/5"
+        class="group flex w-20 shrink-0 snap-start flex-col items-center gap-1 text-center"
       >
-        ${s.avatarUrl
-          ? html`<img
-              src="${s.avatarUrl}"
-              alt=""
-              loading="lazy"
-              referrerpolicy="no-referrer"
-              class="h-8 w-8 shrink-0 rounded-full object-cover"
-            />`
-          : html`<div class="h-8 w-8 shrink-0 rounded-full bg-white/10"></div>`}
-        <div class="min-w-0 flex-1">
-          <div
-            class="truncate text-sm font-medium text-white transition-colors group-hover:text-blue-300"
+        <div class="relative">
+          ${s.avatarUrl
+            ? html`<img
+                src="${s.avatarUrl}"
+                alt=""
+                loading="lazy"
+                referrerpolicy="no-referrer"
+                class="h-11 w-11 rounded-full object-cover ring-2 ring-red-500/70"
+              />`
+            : html`<div
+                class="h-11 w-11 rounded-full bg-white/10 ring-2 ring-red-500/70"
+              ></div>`}
+          <span
+            class="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-surface"
           >
-            ${s.displayName}
-          </div>
-          <div class="flex items-center gap-1 text-xs text-white/50">
-            <span class="h-1.5 w-1.5 rounded-full bg-red-500"></span>
-            ${translateText("streaming_now.viewers", {
-              count: formatViewers(s.viewers),
-            })}
-          </div>
+            ${this.platformIcon(s.platform)}
+          </span>
         </div>
-        ${this.platformIcon(s.platform)}
+        <div
+          class="w-full truncate text-[11px] font-medium text-white transition-colors group-hover:text-blue-300"
+        >
+          ${s.displayName}
+        </div>
+        <div class="w-full truncate text-[10px] text-white/50">
+          ${translateText("streaming_now.viewers", {
+            count: formatViewers(s.viewers),
+          })}
+        </div>
       </a>
     `;
   }
 
   private platformIcon(platform: LiveStream["platform"]) {
-    const cls = "mt-0.5 h-3.5 w-3.5 shrink-0 self-start";
+    const cls = "h-2.5 w-2.5";
     if (platform === "youtube") {
       return html`<svg
         viewBox="0 0 24 24"

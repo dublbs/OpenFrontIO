@@ -83,7 +83,7 @@ export class PlayPage extends LitElement {
           >
             <news-box class="flex-1 min-w-0"></news-box>
             <streaming-now
-              class="w-full lg:w-auto lg:basis-1/3 lg:shrink-0 lg:grow-0"
+              class="w-full lg:w-80 lg:shrink-0 lg:grow-0"
             ></streaming-now>
           </div>
 
