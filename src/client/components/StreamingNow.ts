@@ -19,17 +19,22 @@ export function watchUrl(s: LiveStream): string {
 // Compact viewer count: 932 -> "932", 1234 -> "1.2K", 12345 -> "12K", 1.2e6 -> "1.2M".
 export function formatViewers(n: number): string {
   if (n < 1000) return String(n);
-  if (n < 1_000_000) return `${(n / 1000).toFixed(n < 10_000 ? 1 : 0)}K`;
+  if (n < 1_000_000) {
+    const k = n / 1000;
+    if (k >= 999.5) return "1.0M"; // avoid "1000K" when rounding crosses a million
+    return `${k.toFixed(k < 9.95 ? 1 : 0)}K`;
+  }
   return `${(n / 1_000_000).toFixed(1)}M`;
 }
 
 // Homepage "Streaming Now" panel: a compact list of who is live playing OpenFront, fed by
-// getLiveStreams() (served JSON + bundled fallback). Renders nothing and collapses its host
-// when the feature is off or nobody is live, so the news box reclaims the row.
+// getLiveStreams() (served JSON + bundled fallback). Stays hidden until it has live streams,
+// so the sibling news box keeps the full row when nobody is live (the common case).
 @customElement("streaming-now")
 export class StreamingNow extends LitElement {
   @state() private streams: LiveStream[] = [];
   private refreshTimer: ReturnType<typeof setInterval> | null = null;
+  private loadGen = 0; // ignore a stale fetch that resolves after a newer one
 
   // Light DOM so Tailwind classes apply (matches NewsBox).
   createRenderRoot() {
@@ -38,6 +43,7 @@ export class StreamingNow extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    this.style.display = "none"; // hidden until the first load finds a live stream (no flash)
     void this.load();
     this.refreshTimer = setInterval(() => void this.load(), REFRESH_MS);
   }
@@ -49,7 +55,9 @@ export class StreamingNow extends LitElement {
   }
 
   private async load() {
+    const gen = ++this.loadGen;
     const cfg = await getLiveStreams();
+    if (gen !== this.loadGen) return; // superseded by a newer load()
     const streams = cfg.enabled ? cfg.streams : [];
     // Highest viewer counts first (defensive; the backend already sorts).
     this.streams = [...streams].sort((a, b) => b.viewers - a.viewers);
@@ -60,7 +68,13 @@ export class StreamingNow extends LitElement {
   render() {
     if (this.streams.length === 0) return nothing;
     const shown = this.streams.slice(0, MAX_VISIBLE);
-    const extra = this.streams.length - shown.length;
+    // The "more" link goes to the Twitch category, so only count hidden Twitch streams.
+    const extra = this.streams
+      .slice(MAX_VISIBLE)
+      .filter((s) => s.platform === "twitch").length;
+    const count = translateText("streaming_now.live_count", {
+      count: this.streams.length,
+    });
     return html`
       <div
         class="flex h-full flex-col bg-surface px-2 py-2 border-y border-white/10 lg:border-y-0 lg:rounded-xl lg:p-3"
@@ -72,7 +86,10 @@ export class StreamingNow extends LitElement {
           >
             ${translateText("streaming_now.title")}
           </span>
-          <span class="ml-auto text-[11px] text-white/40"
+          <span
+            class="ml-auto text-[11px] text-white/40"
+            title="${count}"
+            aria-label="${count}"
             >${this.streams.length}</span
           >
         </div>
@@ -98,6 +115,7 @@ export class StreamingNow extends LitElement {
         href="${watchUrl(s)}"
         target="_blank"
         rel="noopener noreferrer"
+        title="${s.title ?? nothing}"
         aria-label="${translateText("streaming_now.watch", {
           name: s.displayName,
         })}"
@@ -108,6 +126,7 @@ export class StreamingNow extends LitElement {
               src="${s.avatarUrl}"
               alt=""
               loading="lazy"
+              referrerpolicy="no-referrer"
               class="h-8 w-8 shrink-0 rounded-full object-cover"
             />`
           : html`<div class="h-8 w-8 shrink-0 rounded-full bg-white/10"></div>`}

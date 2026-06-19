@@ -47,7 +47,9 @@ describe("StreamingNow", () => {
       expect(formatViewers(0)).toBe("0");
       expect(formatViewers(932)).toBe("932");
       expect(formatViewers(1234)).toBe("1.2K");
+      expect(formatViewers(9999)).toBe("10K"); // no stray "10.0K"
       expect(formatViewers(12345)).toBe("12K");
+      expect(formatViewers(999_600)).toBe("1.0M"); // no "1000K"
       expect(formatViewers(1_200_000)).toBe("1.2M");
     });
   });
@@ -85,6 +87,18 @@ describe("StreamingNow", () => {
         ],
       });
       expect(parsed.success).toBe(false);
+    });
+
+    it("rejects non-https url schemes (no javascript:/http:)", () => {
+      for (const url of ["javascript:alert(1)", "http://example.com"]) {
+        const parsed = LiveStreamsSchema.safeParse({
+          enabled: true,
+          streams: [
+            { platform: "twitch", channel: "x", displayName: "X", url },
+          ],
+        });
+        expect(parsed.success).toBe(false);
+      }
     });
   });
 
