@@ -1230,6 +1230,12 @@
     "switch_button": "Switch",
     "title": "Store"
   },
+  "streaming_now": {
+    "more": "+{count} more on Twitch",
+    "title": "Streaming Now",
+    "viewers": "{count} watching",
+    "watch": "Watch {name}"
+  },
   "team_colors": {
     "blue": "Blue",
     "bot": "Tribes",

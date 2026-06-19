@@ -257,3 +257,27 @@ export const NewsItemSchema = z.object({
   type: z.enum(["tournament", "tutorial", "announcement"]).or(z.string()),
 });
 export type NewsItem = z.infer<typeof NewsItemSchema>;
+
+// One live stream in the homepage "Streaming Now" panel. Filled by a backend job (Twitch
+// Helix for auto-discovery; YouTube curated) and served like news.json. `channel` is the
+// login/handle used to derive the watch URL when `url` is absent; image/link fields are
+// validated as URLs so a malformed entry fails the config closed (see getLiveStreams).
+export const LiveStreamSchema = z.object({
+  platform: z.enum(["twitch", "youtube"]),
+  channel: z.string().min(1).max(100),
+  displayName: z.string().min(1).max(100),
+  title: z.string().max(200).optional(),
+  viewers: z.number().int().nonnegative().default(0),
+  avatarUrl: z.string().url().optional(),
+  url: z.string().url().optional(),
+});
+export type LiveStream = z.infer<typeof LiveStreamSchema>;
+
+// Config for the homepage "Streaming Now" panel, served like news.json (API-hosted JSON
+// with a bundled fallback). `enabled` is the on/off toggle; `streams` is the live list.
+// Disabled or empty = panel hidden.
+export const LiveStreamsSchema = z.object({
+  enabled: z.boolean().default(false),
+  streams: z.array(LiveStreamSchema).default([]),
+});
+export type LiveStreamsConfig = z.infer<typeof LiveStreamsSchema>;

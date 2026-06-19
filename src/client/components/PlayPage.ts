@@ -2,6 +2,7 @@ import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { assetUrl } from "../../core/AssetUrls";
 import "./NewsBox";
+import "./StreamingNow";
 
 @customElement("play-page")
 export class PlayPage extends LitElement {
@@ -74,8 +75,16 @@ export class PlayPage extends LitElement {
             class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] lg:col-span-2 -mb-4"
           ></div>
 
-          <!-- News box above username -->
-          <news-box class="lg:col-span-2"></news-box>
+          <!-- News + "Streaming Now" share the top row as equal-height cards. The stream
+               panel self-hides when nobody is live, letting news reclaim the full width. -->
+          <div
+            class="lg:col-span-2 flex flex-col gap-4 lg:flex-row lg:items-stretch"
+          >
+            <news-box class="flex-1 min-w-0 [&>div]:h-full"></news-box>
+            <streaming-now
+              class="w-full lg:w-auto lg:basis-1/3 lg:shrink-0 lg:grow-0"
+            ></streaming-now>
+          </div>
 
           <!-- Username: left col -->
           <div
