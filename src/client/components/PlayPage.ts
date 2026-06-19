@@ -75,12 +75,13 @@ export class PlayPage extends LitElement {
             class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] lg:col-span-2 -mb-4"
           ></div>
 
-          <!-- News + "Streaming Now" share the top row as equal-height cards. The stream
+          <!-- News + "Streaming Now" share the top row, top-aligned: news keeps its natural
+               (fixed) height and must not stretch; the stream panel grows with its list. The
                panel self-hides when nobody is live, letting news reclaim the full width. -->
           <div
-            class="lg:col-span-2 flex flex-col gap-4 lg:flex-row lg:items-stretch"
+            class="lg:col-span-2 flex flex-col gap-4 lg:flex-row lg:items-start"
           >
-            <news-box class="flex-1 min-w-0 [&>div]:h-full"></news-box>
+            <news-box class="flex-1 min-w-0"></news-box>
             <streaming-now
               class="w-full lg:w-auto lg:basis-1/3 lg:shrink-0 lg:grow-0"
             ></streaming-now>
