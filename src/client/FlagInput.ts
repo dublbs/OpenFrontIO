@@ -85,7 +85,7 @@ export class FlagInput extends LitElement {
           ? html`<span
               class="text-[7px] lg:text-[10px] font-black tracking-wider text-white uppercase leading-tight lg:leading-none w-full text-center px-0.5 lg:px-1"
             >
-              ${translateText("flag_input.title")}
+              ${translateText("flag_input.short")}
             </span>`
           : null}
       </button>

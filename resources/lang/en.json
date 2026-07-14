@@ -430,6 +430,7 @@
   "flag_input": {
     "button_title": "Pick a flag!",
     "search_flag": "Search...",
+    "short": "Flag",
     "title": "Select Flag"
   },
   "friends": {
@@ -1255,6 +1256,7 @@
     "purchase": "Purchase",
     "search": "Search...",
     "select_skin": "Select Skin",
+    "select_skin_short": "Skin",
     "selected": "selected",
     "title": "Skins"
   },

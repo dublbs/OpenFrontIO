@@ -1,4 +1,37 @@
 {
-  "enabled": false,
-  "streams": []
+  "enabled": true,
+  "streams": [
+    {
+      "platform": "youtube",
+      "channel": "@OpenFront_Masters",
+      "displayName": "OpenFront Masters",
+      "title": "OFM Live",
+      "viewers": 210,
+      "url": "https://www.youtube.com/@OpenFront_Masters"
+    },
+    {
+      "platform": "twitch",
+      "channel": "openfrontmasters",
+      "displayName": "OpenFront Masters",
+      "title": "OFM Broadcast",
+      "viewers": 156,
+      "url": "https://www.twitch.tv/openfrontmasters"
+    },
+    {
+      "platform": "twitch",
+      "channel": "lonely_millennial",
+      "displayName": "lonely_millennial",
+      "title": "OpenFront ranked grind",
+      "viewers": 43,
+      "url": "https://www.twitch.tv/lonely_millennial"
+    },
+    {
+      "platform": "youtube",
+      "channel": "@ultimus_rex40",
+      "displayName": "ultimus_rex40",
+      "title": "OpenFront FFA",
+      "viewers": 28,
+      "url": "https://www.youtube.com/@ultimus_rex40"
+    }
+  ]
 }

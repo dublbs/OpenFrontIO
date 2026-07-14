@@ -87,40 +87,25 @@ export class PlayPage extends LitElement {
             ></streaming-now>
           </div>
 
-          <!-- Username: left col -->
+          <!-- Identity row (left col, under the news banner): flag + tag/username + skin
+               folded into one line. Flag sits before the tag (where it shows in-game), the
+               skin button sits at the end. Replaces the old separate SELECT SKIN / SELECT
+               FLAG buttons; both inputs already preview the current selection. -->
           <div
-            class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible lg:flex lg:items-center lg:gap-x-2 lg:h-[60px] lg:p-3 lg:relative lg:z-20 lg:border-y-0 lg:rounded-xl"
+            class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 lg:h-[60px] lg:p-3 lg:relative lg:z-20 lg:border-y-0 lg:rounded-xl"
           >
-            <div class="flex items-center gap-2 min-w-0 w-full">
-              <username-input
-                class="flex-1 min-w-0 h-10 lg:h-[50px]"
-              ></username-input>
-              <pattern-input
-                id="pattern-input-mobile"
-                show-select-label
-                adaptive-size
-                class="shrink-0 lg:hidden"
-              ></pattern-input>
-              <flag-input
-                id="flag-input-mobile"
-                show-select-label
-                class="shrink-0 lg:hidden h-10 w-10"
-              ></flag-input>
-            </div>
-          </div>
-
-          <!-- Skin + flag: right col -->
-          <div class="hidden lg:flex h-[60px] gap-2">
-            <pattern-input
-              id="pattern-input-desktop"
-              show-select-label
-              class="flex-1 h-full"
-            ></pattern-input>
             <flag-input
-              id="flag-input-desktop"
               show-select-label
-              class="flex-1 h-full"
+              class="shrink-0 h-10 w-10 lg:h-[44px] lg:w-[44px]"
             ></flag-input>
+            <username-input
+              class="flex-1 min-w-0 h-10 lg:h-[50px]"
+            ></username-input>
+            <pattern-input
+              show-select-label
+              adaptive-size
+              class="shrink-0"
+            ></pattern-input>
           </div>
         </div>
 
