@@ -68,7 +68,7 @@ export class PlayPage extends LitElement {
         </div>
 
         <div
-          class="w-full pb-4 lg:pb-0 flex flex-col gap-4 sm:-mx-4 sm:w-[calc(100%+2rem)] lg:mx-0 lg:w-full lg:grid lg:grid-cols-[2fr_1fr] lg:gap-4 lg:items-stretch"
+          class="w-full pb-4 lg:pb-0 flex flex-col gap-4 sm:-mx-4 sm:w-[calc(100%+2rem)] lg:mx-0 lg:w-full lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-4 lg:items-stretch"
         >
           <!-- Mobile: spacer for fixed top bar -->
           <div
