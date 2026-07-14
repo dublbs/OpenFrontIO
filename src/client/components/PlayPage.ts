@@ -99,7 +99,7 @@ export class PlayPage extends LitElement {
                    (buttons are the same surface color, so they blend at rest and only
                    highlight on hover), not three separate chips. -->
               <div
-                class="relative z-10 flex h-full w-full min-w-0 items-center gap-2 bg-surface/80 px-2 py-2 sm:rounded-xl sm:px-3"
+                class="relative z-10 flex h-full w-full min-w-0 items-center gap-2 bg-surface/80 py-1 pl-2 pr-1 sm:rounded-xl sm:pl-3"
               >
                 <flag-input
                   show-select-label
@@ -108,10 +108,11 @@ export class PlayPage extends LitElement {
                 <username-input
                   class="flex-1 min-w-0 h-10 sm:h-[50px]"
                 ></username-input>
+                <!-- Skin fills the bar height and sits at the right edge, with a
+                     black+white stroke so it's easy to spot over any skin. -->
                 <pattern-input
                   show-select-label
-                  adaptive-size
-                  class="shrink-0"
+                  class="shrink-0 h-full aspect-square rounded-lg [box-shadow:0_0_0_1px_#fff,0_0_0_2px_#000]"
                 ></pattern-input>
               </div>
             </div>
