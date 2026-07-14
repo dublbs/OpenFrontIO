@@ -59,7 +59,7 @@ export class CosmeticBackground extends LitElement {
       if (!url) return nothing;
       return html`<div
         class="w-full h-full pointer-events-none [image-rendering:pixelated]"
-        style="background-image:url('${url}');background-repeat:repeat;background-size:32px"
+        style="background-image:url('${url}');background-repeat:repeat;background-size:auto 100%"
       ></div>`;
     }
     return nothing;

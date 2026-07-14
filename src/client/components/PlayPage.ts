@@ -101,7 +101,7 @@ export class PlayPage extends LitElement {
                 class="relative z-10 shrink-0 h-10 w-10 sm:h-[44px] sm:w-[44px]"
               ></flag-input>
               <username-input
-                class="relative z-10 flex-1 min-w-0 h-10 sm:h-[50px]"
+                class="relative z-10 flex-1 min-w-0 h-10 sm:h-[50px] bg-surface rounded-lg px-2"
               ></username-input>
               <pattern-input
                 show-select-label
