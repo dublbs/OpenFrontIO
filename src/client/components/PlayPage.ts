@@ -87,7 +87,7 @@ export class PlayPage extends LitElement {
                  tag (where it shows in-game), skin at the end; both preview the current
                  selection. Replaces the old separate SELECT SKIN / SELECT FLAG buttons. -->
             <div
-              class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 sm:h-[60px] sm:p-3 sm:relative sm:z-20 sm:border-y-0 sm:rounded-xl"
+              class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 sm:min-h-[60px] sm:flex-1 sm:p-3 sm:relative sm:z-20 sm:border-y-0 sm:rounded-xl"
             >
               <flag-input
                 show-select-label
