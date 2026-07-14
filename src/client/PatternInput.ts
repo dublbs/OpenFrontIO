@@ -159,7 +159,7 @@ export class PatternInput extends LitElement {
         ${showSelect
           ? html`<span
               class="${this.adaptiveSize
-                ? "text-[7px] leading-tight px-0.5"
+                ? "text-[10px] lg:text-sm leading-tight px-0.5"
                 : "text-[10px] leading-none break-words px-1"} font-black text-white uppercase w-full text-center"
             >
               ${translateText("territory_patterns.select_skin_short")}
