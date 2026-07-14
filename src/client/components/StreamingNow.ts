@@ -87,7 +87,7 @@ export class StreamingNow extends LitElement {
         }
       </style>
       <div
-        class="flex flex-col bg-surface px-2 py-2 border-y border-white/10 lg:h-full lg:flex-1 lg:justify-center lg:border-y-0 lg:rounded-xl lg:px-3 lg:py-2"
+        class="flex flex-col bg-surface px-2 py-2 border-y border-white/10 sm:h-full sm:flex-1 sm:justify-center sm:border-y-0 sm:rounded-xl sm:px-3 sm:py-2"
       >
         <div class="mb-2 flex items-center gap-2">
           <span class="h-2 w-2 animate-pulse rounded-full bg-red-500"></span>

@@ -67,14 +67,17 @@ export class PlayPage extends LitElement {
           </div>
         </div>
 
+        <!-- Mobile: spacer for the fixed top bar. Kept out of the grid so it never
+             occupies a column. -->
         <div
-          class="w-full pb-4 lg:pb-0 flex flex-col gap-4 sm:-mx-4 sm:w-[calc(100%+2rem)] lg:mx-0 lg:w-full lg:grid lg:grid-cols-[2fr_1fr] lg:gap-4 lg:items-stretch"
-        >
-          <!-- Mobile: spacer for fixed top bar -->
-          <div
-            class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] -mb-4"
-          ></div>
+          class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] -mb-2"
+        ></div>
 
+        <!-- Top strip. Mirrors game-mode-selector's grid (sm:2fr/1fr, same bounds and gap)
+             so the Streaming Now panel lines up exactly with the game lobby column below. -->
+        <div
+          class="w-full pb-4 sm:pb-0 flex flex-col gap-4 sm:grid sm:grid-cols-[2fr_1fr] sm:gap-4 sm:items-stretch"
+        >
           <!-- Left column: news banner + identity row, stacked tight so the row sits
                directly under the banner. -->
           <div class="flex flex-col gap-2 min-w-0">
@@ -84,14 +87,14 @@ export class PlayPage extends LitElement {
                  tag (where it shows in-game), skin at the end; both preview the current
                  selection. Replaces the old separate SELECT SKIN / SELECT FLAG buttons. -->
             <div
-              class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 lg:h-[60px] lg:p-3 lg:relative lg:z-20 lg:border-y-0 lg:rounded-xl"
+              class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 sm:h-[60px] sm:p-3 sm:relative sm:z-20 sm:border-y-0 sm:rounded-xl"
             >
               <flag-input
                 show-select-label
-                class="shrink-0 h-10 w-10 lg:h-[44px] lg:w-[44px]"
+                class="shrink-0 h-10 w-10 sm:h-[44px] sm:w-[44px]"
               ></flag-input>
               <username-input
-                class="flex-1 min-w-0 h-10 lg:h-[50px]"
+                class="flex-1 min-w-0 h-10 sm:h-[50px]"
               ></username-input>
               <pattern-input
                 show-select-label
@@ -104,7 +107,7 @@ export class PlayPage extends LitElement {
           <!-- Right column: Streaming Now, stretched to the left column's full height
                (news + identity) so the top strip has no dead space. -->
           <streaming-now
-            class="w-full lg:h-full lg:flex lg:flex-col"
+            class="w-full sm:h-full sm:flex sm:flex-col"
           ></streaming-now>
         </div>
 
