@@ -110,10 +110,10 @@ export class PlayPage extends LitElement {
                 <username-input
                   class="flex-1 min-w-0 h-10 sm:h-[50px]"
                 ></username-input>
-                <!-- Black+white stroke so the skin is easy to spot over any skin fill. -->
+                <!-- Raised 3D shadow so the skin pops off the bar and is easy to spot. -->
                 <pattern-input
                   show-select-label
-                  class="shrink-0 h-full max-h-[52px] aspect-square rounded-lg [box-shadow:0_0_0_1px_#fff,0_0_0_2px_#000]"
+                  class="shrink-0 h-full max-h-[52px] aspect-square rounded-lg [box-shadow:0_3px_6px_#00000099,0_1px_2px_#000000cc]"
                 ></pattern-input>
               </div>
             </div>
