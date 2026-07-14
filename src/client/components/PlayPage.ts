@@ -88,7 +88,7 @@ export class PlayPage extends LitElement {
                  tag (where it shows in-game), skin at the end; both preview the current
                  selection. Replaces the old separate SELECT SKIN / SELECT FLAG buttons. -->
             <div
-              class="relative px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center sm:min-h-[60px] sm:flex-1 sm:p-3 sm:z-20 sm:border-y-0 sm:rounded-xl"
+              class="relative bg-surface border-y border-white/10 overflow-visible flex items-center sm:min-h-[60px] sm:flex-1 sm:z-20 sm:border-y-0 sm:rounded-xl"
             >
               <!-- Selected skin/pattern fills the bubble like the player's territory in
                    game (the skin button updates it), shown as a frame around the controls. -->
@@ -99,7 +99,7 @@ export class PlayPage extends LitElement {
                    (buttons are the same surface color, so they blend at rest and only
                    highlight on hover), not three separate chips. -->
               <div
-                class="relative z-10 flex h-full w-full min-w-0 items-center gap-2 rounded-lg bg-surface/25 px-2 sm:px-3"
+                class="relative z-10 flex h-full w-full min-w-0 items-center gap-2 bg-surface/80 px-2 py-2 sm:rounded-xl sm:px-3"
               >
                 <flag-input
                   show-select-label
