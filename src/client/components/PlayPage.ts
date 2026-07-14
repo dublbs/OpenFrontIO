@@ -1,6 +1,7 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { assetUrl } from "../../core/AssetUrls";
+import "./CosmeticBackground";
 import "./NewsBox";
 import "./StreamingNow";
 
@@ -87,19 +88,25 @@ export class PlayPage extends LitElement {
                  tag (where it shows in-game), skin at the end; both preview the current
                  selection. Replaces the old separate SELECT SKIN / SELECT FLAG buttons. -->
             <div
-              class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 sm:min-h-[60px] sm:flex-1 sm:p-3 sm:relative sm:z-20 sm:border-y-0 sm:rounded-xl"
+              class="relative px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 sm:min-h-[60px] sm:flex-1 sm:p-3 sm:z-20 sm:border-y-0 sm:rounded-xl"
             >
+              <!-- Selected skin/pattern fills the bubble like the player's territory in
+                   game (skin button updates it). Behind the content; text stays legible
+                   via the in-game-style outline on the username. -->
+              <cosmetic-background
+                class="absolute inset-0 z-0 overflow-hidden sm:rounded-xl pointer-events-none"
+              ></cosmetic-background>
               <flag-input
                 show-select-label
-                class="shrink-0 h-10 w-10 sm:h-[44px] sm:w-[44px]"
+                class="relative z-10 shrink-0 h-10 w-10 sm:h-[44px] sm:w-[44px]"
               ></flag-input>
               <username-input
-                class="flex-1 min-w-0 h-10 sm:h-[50px]"
+                class="relative z-10 flex-1 min-w-0 h-10 sm:h-[50px]"
               ></username-input>
               <pattern-input
                 show-select-label
                 adaptive-size
-                class="shrink-0"
+                class="relative z-10 shrink-0"
               ></pattern-input>
             </div>
           </div>
