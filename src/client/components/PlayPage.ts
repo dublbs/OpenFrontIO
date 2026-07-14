@@ -14,7 +14,7 @@ export class PlayPage extends LitElement {
     return html`
       <div
         id="page-play"
-        class="flex flex-col gap-2 w-full px-0 lg:px-4 min-h-0"
+        class="flex flex-col gap-1 w-full px-0 lg:px-4 min-h-0"
       >
         <token-login class="absolute"></token-login>
 
@@ -70,7 +70,7 @@ export class PlayPage extends LitElement {
         <!-- Mobile: spacer for the fixed top bar. Kept out of the grid so it never
              occupies a column. -->
         <div
-          class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] -mb-2"
+          class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] -mb-1"
         ></div>
 
         <!-- Top strip. Mirrors game-mode-selector's grid (sm:2fr/1fr, same bounds and gap)

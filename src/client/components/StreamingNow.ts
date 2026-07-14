@@ -100,7 +100,7 @@ export class StreamingNow extends LitElement {
             class="ml-auto text-[11px] text-white/40"
             title="${count}"
             aria-label="${count}"
-            >${this.streams.length}</span
+            >${count}</span
           >
         </div>
         <div class="streaming-scroll flex snap-x gap-3 overflow-x-auto py-1.5">

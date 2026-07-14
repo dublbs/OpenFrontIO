@@ -1232,7 +1232,7 @@
     "title": "Store"
   },
   "streaming_now": {
-    "live_count": "{count} live",
+    "live_count": "{count} Streaming",
     "title": "Streaming Now",
     "viewers": "{count} watching",
     "watch": "Watch {name}"
