@@ -103,7 +103,9 @@ export class PlayPage extends LitElement {
 
           <!-- Right column: Streaming Now, stretched to the left column's full height
                (news + identity) so the top strip has no dead space. -->
-          <streaming-now class="w-full lg:h-full lg:flex lg:flex-col"></streaming-now>
+          <streaming-now
+            class="w-full lg:h-full lg:flex lg:flex-col"
+          ></streaming-now>
         </div>
 
         <game-mode-selector></game-mode-selector>
