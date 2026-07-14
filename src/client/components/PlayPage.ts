@@ -88,26 +88,32 @@ export class PlayPage extends LitElement {
                  tag (where it shows in-game), skin at the end; both preview the current
                  selection. Replaces the old separate SELECT SKIN / SELECT FLAG buttons. -->
             <div
-              class="relative px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 sm:min-h-[60px] sm:flex-1 sm:p-3 sm:z-20 sm:border-y-0 sm:rounded-xl"
+              class="relative px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center sm:min-h-[60px] sm:flex-1 sm:p-3 sm:z-20 sm:border-y-0 sm:rounded-xl"
             >
               <!-- Selected skin/pattern fills the bubble like the player's territory in
-                   game (skin button updates it). Behind the content; text stays legible
-                   via the in-game-style outline on the username. -->
+                   game (the skin button updates it), shown as a frame around the controls. -->
               <cosmetic-background
                 class="absolute inset-0 z-0 overflow-hidden sm:rounded-xl pointer-events-none"
               ></cosmetic-background>
-              <flag-input
-                show-select-label
-                class="relative z-10 shrink-0 h-10 w-10 sm:h-[44px] sm:w-[44px]"
-              ></flag-input>
-              <username-input
-                class="relative z-10 flex-1 min-w-0 h-10 sm:h-[50px] bg-surface rounded-lg px-2"
-              ></username-input>
-              <pattern-input
-                show-select-label
-                adaptive-size
-                class="relative z-10 shrink-0"
-              ></pattern-input>
+              <!-- Controls share one surface bubble so it reads as a single clean bar
+                   (buttons are the same surface color, so they blend at rest and only
+                   highlight on hover), not three separate chips. -->
+              <div
+                class="relative z-10 flex h-full w-full min-w-0 items-center gap-2 rounded-lg bg-surface/25 px-2 sm:px-3"
+              >
+                <flag-input
+                  show-select-label
+                  class="shrink-0 h-10 w-10 sm:h-[44px] sm:w-[44px]"
+                ></flag-input>
+                <username-input
+                  class="flex-1 min-w-0 h-10 sm:h-[50px]"
+                ></username-input>
+                <pattern-input
+                  show-select-label
+                  adaptive-size
+                  class="shrink-0"
+                ></pattern-input>
+              </div>
             </div>
           </div>
 
