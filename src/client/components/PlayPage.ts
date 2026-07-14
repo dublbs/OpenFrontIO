@@ -68,45 +68,42 @@ export class PlayPage extends LitElement {
         </div>
 
         <div
-          class="w-full pb-4 lg:pb-0 flex flex-col gap-4 sm:-mx-4 sm:w-[calc(100%+2rem)] lg:mx-0 lg:w-full lg:grid lg:grid-cols-[2fr_1fr] lg:gap-4"
+          class="w-full pb-4 lg:pb-0 flex flex-col gap-4 sm:-mx-4 sm:w-[calc(100%+2rem)] lg:mx-0 lg:w-full lg:grid lg:grid-cols-[2fr_1fr] lg:gap-4 lg:items-stretch"
         >
           <!-- Mobile: spacer for fixed top bar -->
           <div
-            class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] lg:col-span-2 -mb-4"
+            class="lg:hidden h-[calc(env(safe-area-inset-top)+56px)] -mb-4"
           ></div>
 
-          <!-- News + "Streaming Now" share the top row, top-aligned: news keeps its natural
-               (fixed) height and must not stretch; the stream panel grows with its list. The
-               panel self-hides when nobody is live, letting news reclaim the full width. -->
-          <div
-            class="lg:col-span-2 flex flex-col gap-4 lg:flex-row lg:items-start"
-          >
-            <news-box class="flex-1 min-w-0"></news-box>
-            <streaming-now
-              class="w-full lg:w-80 lg:shrink-0 lg:grow-0"
-            ></streaming-now>
+          <!-- Left column: news banner + identity row, stacked tight so the row sits
+               directly under the banner. -->
+          <div class="flex flex-col gap-2 min-w-0">
+            <news-box></news-box>
+
+            <!-- Identity row: flag + tag/username + skin in one line. Flag sits before the
+                 tag (where it shows in-game), skin at the end; both preview the current
+                 selection. Replaces the old separate SELECT SKIN / SELECT FLAG buttons. -->
+            <div
+              class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 lg:h-[60px] lg:p-3 lg:relative lg:z-20 lg:border-y-0 lg:rounded-xl"
+            >
+              <flag-input
+                show-select-label
+                class="shrink-0 h-10 w-10 lg:h-[44px] lg:w-[44px]"
+              ></flag-input>
+              <username-input
+                class="flex-1 min-w-0 h-10 lg:h-[50px]"
+              ></username-input>
+              <pattern-input
+                show-select-label
+                adaptive-size
+                class="shrink-0"
+              ></pattern-input>
+            </div>
           </div>
 
-          <!-- Identity row (left col, under the news banner): flag + tag/username + skin
-               folded into one line. Flag sits before the tag (where it shows in-game), the
-               skin button sits at the end. Replaces the old separate SELECT SKIN / SELECT
-               FLAG buttons; both inputs already preview the current selection. -->
-          <div
-            class="px-2 py-2 bg-surface border-y border-white/10 overflow-visible flex items-center gap-2 lg:h-[60px] lg:p-3 lg:relative lg:z-20 lg:border-y-0 lg:rounded-xl"
-          >
-            <flag-input
-              show-select-label
-              class="shrink-0 h-10 w-10 lg:h-[44px] lg:w-[44px]"
-            ></flag-input>
-            <username-input
-              class="flex-1 min-w-0 h-10 lg:h-[50px]"
-            ></username-input>
-            <pattern-input
-              show-select-label
-              adaptive-size
-              class="shrink-0"
-            ></pattern-input>
-          </div>
+          <!-- Right column: Streaming Now, stretched to the left column's full height
+               (news + identity) so the top strip has no dead space. -->
+          <streaming-now class="w-full lg:h-full lg:flex lg:flex-col"></streaming-now>
         </div>
 
         <game-mode-selector></game-mode-selector>
