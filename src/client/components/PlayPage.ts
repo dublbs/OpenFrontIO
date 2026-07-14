@@ -99,21 +99,21 @@ export class PlayPage extends LitElement {
                    (buttons are the same surface color, so they blend at rest and only
                    highlight on hover), not three separate chips. -->
               <div
-                class="relative z-10 flex h-full w-full min-w-0 items-center gap-2 bg-surface/80 px-2 py-2 sm:rounded-xl"
+                class="relative z-10 flex h-full w-full min-w-0 items-center gap-2 bg-surface/80 p-1 sm:rounded-xl"
               >
+                <!-- Flag + skin fill the bubble height (minus the 1-unit padding) so they
+                     hug the edges, capped so they never blow up if the bubble stretches. -->
                 <flag-input
                   show-select-label
-                  class="shrink-0 h-10 w-10 sm:h-[44px] sm:w-[44px]"
+                  class="shrink-0 h-full max-h-[52px] aspect-square"
                 ></flag-input>
                 <username-input
                   class="flex-1 min-w-0 h-10 sm:h-[50px]"
                 ></username-input>
-                <!-- Skin kept its normal size, with a black+white stroke so it's easy
-                     to spot over any skin fill. -->
+                <!-- Black+white stroke so the skin is easy to spot over any skin fill. -->
                 <pattern-input
                   show-select-label
-                  adaptive-size
-                  class="shrink-0 rounded-lg [box-shadow:0_0_0_1px_#fff,0_0_0_2px_#000]"
+                  class="shrink-0 h-full max-h-[52px] aspect-square rounded-lg [box-shadow:0_0_0_1px_#fff,0_0_0_2px_#000]"
                 ></pattern-input>
               </div>
             </div>
