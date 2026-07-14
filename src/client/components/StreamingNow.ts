@@ -103,7 +103,7 @@ export class StreamingNow extends LitElement {
             >${this.streams.length}</span
           >
         </div>
-        <div class="streaming-scroll flex snap-x gap-3 overflow-x-auto pb-1">
+        <div class="streaming-scroll flex snap-x gap-3 overflow-x-auto py-1.5">
           ${this.streams.map((s) => this.renderCard(s))}
         </div>
       </div>
