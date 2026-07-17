@@ -1,5 +1,6 @@
 import { Worker } from "cluster";
 import winston from "winston";
+import { GameEnv } from "../core/configuration/Config";
 import {
   MAX_HOSTED_LOBBIES,
   PublicGameType,
@@ -85,7 +86,10 @@ export class MasterLobbyService {
       this.started = true;
       this.log.info("All workers ready, starting game scheduling");
       startPolling(async () => this.broadcastLobbies(), 500);
-      startPolling(async () => await this.maybeScheduleLobby(), 1000);
+      // Skip public game scheduling in dev/self-hosted mode — no API server
+      if (ServerEnv.env() !== GameEnv.Dev) {
+        startPolling(async () => await this.maybeScheduleLobby(), 1000);
+      }
     }
   }
 

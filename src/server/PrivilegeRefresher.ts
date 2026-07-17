@@ -71,9 +71,10 @@ export class PrivilegeRefresher {
       ]);
 
       if (!cosmeticsResponse || !cosmeticsResponse.ok) {
-        throw new Error(
-          `Cosmetics HTTP error! status: ${cosmeticsResponse?.status ?? "network error"}`,
+        this.log.warn(
+          `Cosmetics endpoint unavailable (${cosmeticsResponse?.status ?? "network error"}), using fail-open mode`,
         );
+        return;
       }
 
       const cosmeticsData = await cosmeticsResponse.json();
@@ -85,11 +86,12 @@ export class PrivilegeRefresher {
 
       // Reserved clan tags are critical: a missing or malformed list would
       // make every non-member tag look fictional and let impersonation
-      // through. Throw so the previous (good) checker is retained instead.
+      // through. Retain the previous (good) checker if unavailable.
       if (!reservedClanTagsResponse || !reservedClanTagsResponse.ok) {
-        throw new Error(
-          `Reserved clan tags HTTP error! status: ${reservedClanTagsResponse?.status ?? "network error"}`,
+        this.log.warn(
+          `Reserved clan tags endpoint unavailable (${reservedClanTagsResponse?.status ?? "network error"}), using fail-open mode`,
         );
+        return;
       }
       const reservedClanTagsData = await reservedClanTagsResponse.json();
       const reservedClanTagsResult =
@@ -132,8 +134,7 @@ export class PrivilegeRefresher {
         `Privilege checker loaded successfully (${reservedClanTags.size} reserved clan tags)`,
       );
     } catch (error) {
-      this.log.error(`Failed to load privilege checker:`, error);
-      throw error;
+      this.log.warn(`Privilege checker unavailable, using fail-open mode:`, error);
     }
   }
 }
