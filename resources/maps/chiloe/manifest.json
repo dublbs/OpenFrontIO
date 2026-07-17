@@ -1,0 +1,890 @@
+{
+  "categories": [
+    "south_america"
+  ],
+  "id": "Chiloe",
+  "map": {
+    "height": 1876,
+    "num_land_tiles": 1243988,
+    "width": 1548
+  },
+  "map16x": {
+    "height": 469,
+    "num_land_tiles": 74465,
+    "width": 387
+  },
+  "map4x": {
+    "height": 938,
+    "num_land_tiles": 306440,
+    "width": 774
+  },
+  "multiplayer_frequency": 8,
+  "name": "Chiloe",
+  "nations": [
+    {
+      "coordinates": [
+        1278,
+        51
+      ],
+      "flag": "cl",
+      "name": "Puerto Montt"
+    },
+    {
+      "coordinates": [
+        1161,
+        267
+      ],
+      "flag": "cl",
+      "name": "Calbuco"
+    },
+    {
+      "coordinates": [
+        871,
+        155
+      ],
+      "flag": "cl",
+      "name": "Maullín"
+    },
+    {
+      "coordinates": [
+        1421,
+        1094
+      ],
+      "flag": "cl",
+      "name": "Chaitén"
+    },
+    {
+      "coordinates": [
+        726,
+        337
+      ],
+      "flag": "cl",
+      "name": "Ancud"
+    },
+    {
+      "coordinates": [
+        766,
+        780
+      ],
+      "flag": "cl",
+      "name": "Castro"
+    },
+    {
+      "coordinates": [
+        761,
+        883
+      ],
+      "flag": "cl",
+      "name": "Chonchi"
+    },
+    {
+      "coordinates": [
+        855,
+        1241
+      ],
+      "flag": "cl",
+      "name": "Quellón"
+    },
+    {
+      "coordinates": [
+        839,
+        706
+      ],
+      "flag": "cl",
+      "name": "Dalcahue"
+    },
+    {
+      "coordinates": [
+        947,
+        537
+      ],
+      "flag": "cl",
+      "name": "Quemchi"
+    },
+    {
+      "coordinates": [
+        947,
+        1074
+      ],
+      "flag": "cl",
+      "name": "Queilén"
+    },
+    {
+      "coordinates": [
+        1070,
+        817
+      ],
+      "flag": "cl",
+      "name": "Quinchao"
+    },
+    {
+      "coordinates": [
+        866,
+        750
+      ],
+      "flag": "cl",
+      "name": "Curaco de Vélez"
+    },
+    {
+      "coordinates": [
+        821,
+        865
+      ],
+      "flag": "cl",
+      "name": "Puqueldón"
+    },
+    {
+      "coordinates": [
+        914,
+        308
+      ],
+      "flag": "cl",
+      "name": "Chacao"
+    },
+    {
+      "coordinates": [
+        552,
+        893
+      ],
+      "flag": "cl",
+      "name": "Cucao"
+    },
+    {
+      "coordinates": [
+        937,
+        772
+      ],
+      "flag": "cl",
+      "name": "Achao"
+    },
+    {
+      "coordinates": [
+        860,
+        854
+      ],
+      "flag": "cl",
+      "name": "Aldachildo"
+    },
+    {
+      "coordinates": [
+        794,
+        877
+      ],
+      "flag": "cl",
+      "name": "Ichuac"
+    },
+    {
+      "coordinates": [
+        895,
+        927
+      ],
+      "flag": "cl",
+      "name": "Detif"
+    },
+    {
+      "coordinates": [
+        798,
+        600
+      ],
+      "flag": "cl",
+      "name": "Butalcura"
+    },
+    {
+      "coordinates": [
+        900,
+        674
+      ],
+      "flag": "cl",
+      "name": "Quetalco"
+    },
+    {
+      "coordinates": [
+        1000,
+        652
+      ],
+      "flag": "cl",
+      "name": "Tenaún"
+    },
+    {
+      "coordinates": [
+        943,
+        451
+      ],
+      "flag": "cl",
+      "name": "Lliuco"
+    },
+    {
+      "coordinates": [
+        940,
+        554
+      ],
+      "flag": "cl",
+      "name": "Aucar"
+    },
+    {
+      "coordinates": [
+        984,
+        536
+      ],
+      "flag": "cl",
+      "name": "Caucahué"
+    },
+    {
+      "coordinates": [
+        1074,
+        659
+      ],
+      "flag": "cl",
+      "name": "Mechuque"
+    },
+    {
+      "coordinates": [
+        1102,
+        862
+      ],
+      "flag": "cl",
+      "name": "Apiao"
+    },
+    {
+      "coordinates": [
+        1068,
+        897
+      ],
+      "flag": "cl",
+      "name": "Chaulinec"
+    },
+    {
+      "coordinates": [
+        740,
+        338
+      ],
+      "flag": "cl",
+      "name": "Meulín"
+    },
+    {
+      "coordinates": [
+        965,
+        743
+      ],
+      "flag": "cl",
+      "name": "Llingua"
+    },
+    {
+      "coordinates": [
+        839,
+        395
+      ],
+      "flag": "cl",
+      "name": "Pumanzano"
+    },
+    {
+      "coordinates": [
+        794,
+        537
+      ],
+      "flag": "cl",
+      "name": "Degañ"
+    },
+    {
+      "coordinates": [
+        734,
+        519
+      ],
+      "flag": "cl",
+      "name": "Puntra"
+    },
+    {
+      "coordinates": [
+        679,
+        450
+      ],
+      "flag": "cl",
+      "name": "Coípomo"
+    },
+    {
+      "coordinates": [
+        664,
+        341
+      ],
+      "flag": "cl",
+      "name": "Pilluco"
+    },
+    {
+      "coordinates": [
+        777,
+        338
+      ],
+      "flag": "cl",
+      "name": "Quempillén"
+    },
+    {
+      "coordinates": [
+        821,
+        302
+      ],
+      "flag": "cl",
+      "name": "Pugueñún"
+    },
+    {
+      "coordinates": [
+        851,
+        808
+      ],
+      "flag": "cl",
+      "name": "Rilán"
+    },
+    {
+      "coordinates": [
+        636,
+        467
+      ],
+      "flag": "cl",
+      "name": "Chepu"
+    },
+    {
+      "coordinates": [
+        803,
+        1062
+      ],
+      "flag": "cl",
+      "name": "Compu"
+    },
+    {
+      "coordinates": [
+        898,
+        1095
+      ],
+      "flag": "cl",
+      "name": "Tranqui"
+    },
+    {
+      "coordinates": [
+        852,
+        1237
+      ],
+      "flag": "cl",
+      "name": "Laitec"
+    },
+    {
+      "coordinates": [
+        807,
+        1307
+      ],
+      "flag": "cl",
+      "name": "Coldita"
+    },
+    {
+      "coordinates": [
+        955,
+        282
+      ],
+      "flag": "cl",
+      "name": "Pargua"
+    },
+    {
+      "coordinates": [
+        802,
+        251
+      ],
+      "flag": "cl",
+      "name": "Carelmapu"
+    },
+    {
+      "coordinates": [
+        1215,
+        68
+      ],
+      "flag": "cl",
+      "name": "Los Pellines"
+    },
+    {
+      "coordinates": [
+        1290,
+        12
+      ],
+      "flag": "cl",
+      "name": "Río Puelo"
+    },
+    {
+      "coordinates": [
+        1230,
+        58
+      ],
+      "flag": "cl",
+      "name": "Nueva Braunau"
+    },
+    {
+      "coordinates": [
+        1268,
+        38
+      ],
+      "flag": "cl",
+      "name": "El Tepual"
+    },
+    {
+      "coordinates": [
+        1248,
+        52
+      ],
+      "flag": "cl",
+      "name": "Alerce"
+    },
+    {
+      "coordinates": [
+        180,
+        1580
+      ],
+      "flag": "cl",
+      "name": "Guafo"
+    },
+    {
+      "coordinates": [
+        1010,
+        600
+      ],
+      "flag": "cl",
+      "name": "Colú"
+    },
+    {
+      "coordinates": [
+        1170,
+        645
+      ],
+      "flag": "cl",
+      "name": "Butachauques"
+    },
+    {
+      "coordinates": [
+        1148,
+        705
+      ],
+      "flag": "cl",
+      "name": "Tac"
+    },
+    {
+      "coordinates": [
+        1055,
+        858
+      ],
+      "flag": "cl",
+      "name": "Alao"
+    },
+    {
+      "coordinates": [
+        1025,
+        768
+      ],
+      "flag": "cl",
+      "name": "Quenac"
+    },
+    {
+      "coordinates": [
+        888,
+        1272
+      ],
+      "flag": "cl",
+      "name": "Cailín"
+    },
+    {
+      "coordinates": [
+        748,
+        758
+      ],
+      "flag": "cl",
+      "name": "Gamboa"
+    },
+    {
+      "coordinates": [
+        772,
+        802
+      ],
+      "flag": "cl",
+      "name": "Yutuy"
+    },
+    {
+      "coordinates": [
+        752,
+        770
+      ],
+      "flag": "cl",
+      "name": "Chelín"
+    },
+    {
+      "coordinates": [
+        832,
+        940
+      ],
+      "flag": "cl",
+      "name": "Terao"
+    },
+    {
+      "coordinates": [
+        742,
+        1005
+      ],
+      "flag": "cl",
+      "name": "Natri"
+    },
+    {
+      "coordinates": [
+        808,
+        370
+      ],
+      "flag": "cl",
+      "name": "Huillinco"
+    },
+    {
+      "coordinates": [
+        660,
+        888
+      ],
+      "flag": "cl",
+      "name": "Notué"
+    },
+    {
+      "coordinates": [
+        743,
+        824
+      ],
+      "flag": "cl",
+      "name": "Rauco"
+    },
+    {
+      "coordinates": [
+        870,
+        975
+      ],
+      "flag": "cl",
+      "name": "Agoni"
+    },
+    {
+      "coordinates": [
+        870,
+        1245
+      ],
+      "flag": "cl",
+      "name": "Huildad"
+    },
+    {
+      "coordinates": [
+        610,
+        315
+      ],
+      "flag": "cl",
+      "name": "Calle"
+    },
+    {
+      "coordinates": [
+        818,
+        745
+      ],
+      "flag": "cl",
+      "name": "San José"
+    },
+    {
+      "coordinates": [
+        814,
+        698
+      ],
+      "flag": "cl",
+      "name": "San Pedro Dalcahue"
+    },
+    {
+      "coordinates": [
+        806,
+        354
+      ],
+      "flag": "cl",
+      "name": "San Juan Dalcahue"
+    },
+    {
+      "coordinates": [
+        1000,
+        1135
+      ],
+      "flag": "cl",
+      "name": "Centinela"
+    },
+    {
+      "coordinates": [
+        850,
+        1045
+      ],
+      "flag": "cl",
+      "name": "Paildad"
+    },
+    {
+      "coordinates": [
+        753,
+        708
+      ],
+      "flag": "cl",
+      "name": "Piruquina"
+    },
+    {
+      "coordinates": [
+        738,
+        738
+      ],
+      "flag": "cl",
+      "name": "Llaullao"
+    },
+    {
+      "coordinates": [
+        1270,
+        45
+      ],
+      "flag": "cl",
+      "name": "Puerto Varas"
+    },
+    {
+      "coordinates": [
+        1240,
+        60
+      ],
+      "flag": "cl",
+      "name": "Fresia"
+    },
+    {
+      "coordinates": [
+        1260,
+        38
+      ],
+      "flag": "cl",
+      "name": "Frutillar"
+    },
+    {
+      "coordinates": [
+        1245,
+        55
+      ],
+      "flag": "cl",
+      "name": "Llanquihue"
+    },
+    {
+      "coordinates": [
+        1220,
+        78
+      ],
+      "flag": "cl",
+      "name": "Los Muermos"
+    },
+    {
+      "coordinates": [
+        1300,
+        15
+      ],
+      "flag": "cl",
+      "name": "Cochamó"
+    },
+    {
+      "coordinates": [
+        1480,
+        1100
+      ],
+      "flag": "cl",
+      "name": "Futaleufú"
+    },
+    {
+      "coordinates": [
+        1350,
+        1000
+      ],
+      "flag": "cl",
+      "name": "Hualaihué"
+    },
+    {
+      "coordinates": [
+        1490,
+        1050
+      ],
+      "flag": "cl",
+      "name": "Palena"
+    },
+    {
+      "coordinates": [
+        700,
+        355
+      ],
+      "flag": "cl",
+      "name": "Península Lacuy"
+    },
+    {
+      "coordinates": [
+        860,
+        818
+      ],
+      "flag": "cl",
+      "name": "Península de Rilán"
+    },
+    {
+      "coordinates": [
+        530,
+        878
+      ],
+      "flag": "cl",
+      "name": "Bahía de Cucao"
+    },
+    {
+      "coordinates": [
+        540,
+        870
+      ],
+      "flag": "cl",
+      "name": "Lago Cucao"
+    },
+    {
+      "coordinates": [
+        910,
+        845
+      ],
+      "flag": "cl",
+      "name": "Isla Lemuy"
+    },
+    {
+      "coordinates": [
+        1000,
+        778
+      ],
+      "flag": "cl",
+      "name": "Isla Quinchao"
+    },
+    {
+      "coordinates": [
+        960,
+        868
+      ],
+      "flag": "cl",
+      "name": "Isla Quehui"
+    },
+    {
+      "coordinates": [
+        1062,
+        892
+      ],
+      "flag": "cl",
+      "name": "Isla Chaulinec"
+    },
+    {
+      "coordinates": [
+        1052,
+        855
+      ],
+      "flag": "cl",
+      "name": "Isla Alao"
+    },
+    {
+      "coordinates": [
+        1068,
+        655
+      ],
+      "flag": "cl",
+      "name": "Isla Mechuque"
+    },
+    {
+      "coordinates": [
+        1145,
+        702
+      ],
+      "flag": "cl",
+      "name": "Isla Tac"
+    },
+    {
+      "coordinates": [
+        895,
+        1088
+      ],
+      "flag": "cl",
+      "name": "Isla Tranqui"
+    },
+    {
+      "coordinates": [
+        848,
+        1228
+      ],
+      "flag": "cl",
+      "name": "Isla Laitec"
+    },
+    {
+      "coordinates": [
+        885,
+        1268
+      ],
+      "flag": "cl",
+      "name": "Isla Cailín"
+    },
+    {
+      "coordinates": [
+        918,
+        898
+      ],
+      "flag": "cl",
+      "name": "Isla Talcán"
+    },
+    {
+      "coordinates": [
+        848,
+        678
+      ],
+      "flag": "cl",
+      "name": "Isla Chauques"
+    },
+    {
+      "coordinates": [
+        400,
+        1100
+      ],
+      "flag": "cl",
+      "name": "Isla Desertores"
+    },
+    {
+      "coordinates": [
+        910,
+        295
+      ],
+      "flag": "cl",
+      "name": "Canal de Chacao"
+    },
+    {
+      "coordinates": [
+        850,
+        720
+      ],
+      "flag": "cl",
+      "name": "Canal Dalcahue"
+    },
+    {
+      "coordinates": [
+        905,
+        840
+      ],
+      "flag": "cl",
+      "name": "Canal Lemuy"
+    },
+    {
+      "coordinates": [
+        1100,
+        150
+      ],
+      "flag": "cl",
+      "name": "Seno de Reloncaví"
+    },
+    {
+      "coordinates": [
+        700,
+        550
+      ],
+      "flag": "cl",
+      "name": "Golfo de Ancud"
+    },
+    {
+      "coordinates": [
+        500,
+        1200
+      ],
+      "flag": "cl",
+      "name": "Golfo Corcovado"
+    }
+  ],
+  "translation_key": "map.chiloe"
+}

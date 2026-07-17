@@ -28,6 +28,7 @@ export enum GameMapType {
   Caribbean = "Caribbean", // map-generator/assets/maps/caribbean/info.json
   CaspianSea = "Caspian Sea", // map-generator/assets/maps/caspiansea/info.json
   Caucasus = "Caucasus", // map-generator/assets/maps/caucasus/info.json
+  Chiloe = "Chiloe", // map-generator/assets/maps/chiloe/info.json
   China = "China", // map-generator/assets/maps/china/info.json
   ChoppingBlock = "Chopping Block", // map-generator/assets/maps/choppingblock/info.json
   Conakry = "Conakry", // map-generator/assets/maps/conakry/info.json
@@ -351,6 +352,13 @@ export const maps: readonly MapInfo[] = [
     translationKey: "map.caucasus",
     categories: ["europe", "asia"],
     multiplayerFrequency: 5,
+  },
+  {
+    id: "Chiloe",
+    type: GameMapType.Chiloe,
+    translationKey: "map.chiloe",
+    categories: ["south_america"],
+    multiplayerFrequency: 8,
   },
   {
     id: "China",
