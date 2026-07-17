@@ -116,6 +116,21 @@ app.get("/users/@me", (_req, res) => {
   });
 });
 
+// Mock news and cosmetics endpoints
+app.get("/news.json", (_req, res) => {
+  res.json([]);
+});
+
+app.get("/cosmetics.json", (_req, res) => {
+  res.json({
+    hats: [],
+    flags: [],
+    trails: [],
+    deathEffects: [],
+    territories: [],
+  });
+});
+
 function getWorkerPort(workerIndex: number): number {
   return 3001 + workerIndex;
 }
@@ -180,6 +195,14 @@ app.all("/api/game/:id/listing", (req, res) => {
 // Proxy any remaining /api/* to a random worker
 app.all("/api/{*path}", (req, res) => {
   const port = getRandomWorkerPort();
+  proxyToWorker(req, res, port, req.url);
+});
+
+// Proxy /wN/* HTTP requests to the correct worker
+app.all("/w:workerIndex/{*path}", (req, res) => {
+  const workerIndex = parseInt(req.params.workerIndex);
+  const port = getWorkerPort(workerIndex);
+  log.info(`Proxying HTTP ${req.url} -> port ${port}`);
   proxyToWorker(req, res, port, req.url);
 });
 
