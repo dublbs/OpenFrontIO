@@ -124,11 +124,8 @@ app.get("/news.json", (_req, res) => {
 
 app.get("/cosmetics.json", (_req, res) => {
   res.json({
-    hats: [],
-    flags: [],
-    trails: [],
-    deathEffects: [],
-    territories: [],
+    patterns: {},
+    flags: {},
   });
 });
 
