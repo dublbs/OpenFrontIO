@@ -1,5 +1,5 @@
 import ejs from "ejs";
-import type { Response } from "express";
+import type { Request, Response } from "express";
 import fs from "fs/promises";
 import { buildAssetUrl } from "../core/AssetUrls";
 import { setNoStoreHeaders } from "./NoStoreHeaders";
@@ -11,10 +11,17 @@ const APP_SHELL_CACHE_CONTROL =
 
 const appShellContentCache = new Map<string, Promise<string>>();
 
-export async function renderHtmlContent(htmlPath: string): Promise<string> {
+export async function renderHtmlContent(
+  htmlPath: string,
+  hostHeader?: string,
+): Promise<string> {
   const htmlContent = await fs.readFile(htmlPath, "utf-8");
   const assetManifest = await getRuntimeAssetManifest();
-  const cdnBase = ServerEnv.cdnBase();
+  let cdnBase = ServerEnv.cdnBase();
+  if (!cdnBase && hostHeader) {
+    const hostname = hostHeader.split(":")[0];
+    cdnBase = `https://${hostname}`;
+  }
   return ejs.render(htmlContent, {
     gitCommit: JSON.stringify(ServerEnv.gitCommit()),
     assetManifest: JSON.stringify(assetManifest),
@@ -50,14 +57,20 @@ export async function renderHtmlContent(htmlPath: string): Promise<string> {
   });
 }
 
-export async function getAppShellContent(htmlPath: string): Promise<string> {
-  let cachedContent = appShellContentCache.get(htmlPath);
+export async function getAppShellContent(
+  htmlPath: string,
+  hostHeader?: string,
+): Promise<string> {
+  const cacheKey = `${htmlPath}\0${hostHeader ?? ""}`;
+  let cachedContent = appShellContentCache.get(cacheKey);
   if (!cachedContent) {
-    cachedContent = renderHtmlContent(htmlPath).catch((error: unknown) => {
-      appShellContentCache.delete(htmlPath);
-      throw error;
-    });
-    appShellContentCache.set(htmlPath, cachedContent);
+    cachedContent = renderHtmlContent(htmlPath, hostHeader).catch(
+      (error: unknown) => {
+        appShellContentCache.delete(cacheKey);
+        throw error;
+      },
+    );
+    appShellContentCache.set(cacheKey, cachedContent);
   }
   return cachedContent;
 }
@@ -80,8 +93,10 @@ export function setHtmlNoCacheHeaders(res: Response): void {
 export async function renderAppShell(
   res: Response,
   htmlPath: string,
+  req?: Request,
 ): Promise<void> {
-  const rendered = await getAppShellContent(htmlPath);
+  const hostHeader = req?.get("Host");
+  const rendered = await getAppShellContent(htmlPath, hostHeader);
   setAppShellCacheHeaders(res);
   res.send(rendered);
 }

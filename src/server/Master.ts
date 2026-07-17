@@ -33,6 +33,7 @@ app.use(async (req, res, next) => {
       await renderAppShell(
         res,
         path.join(__dirname, "../../static/index.html"),
+        req,
       );
     } catch (error) {
       log.error("Error rendering index.html:", error);
@@ -338,10 +339,10 @@ app.get("/api/health", (_req, res) => {
 });
 
 // SPA fallback route
-app.get("/{*splat}", async function (_req, res) {
+app.get("/{*splat}", async function (req, res) {
   try {
     const htmlPath = path.join(__dirname, "../../static/index.html");
-    await renderAppShell(res, htmlPath);
+    await renderAppShell(res, htmlPath, req);
   } catch (error) {
     log.error("Error rendering SPA fallback:", error);
     res.status(500).send("Internal Server Error");
