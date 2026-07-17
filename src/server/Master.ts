@@ -177,8 +177,8 @@ app.all("/api/game/:id/listing", (req, res) => {
   proxyToWorker(req, res, port, req.url);
 });
 
-// Proxy /api/game/:id/* to a random worker
-app.all("/api/game/:id/*", (req, res) => {
+// Proxy any remaining /api/* to a random worker
+app.all("/api/{*path}", (req, res) => {
   const port = getRandomWorkerPort();
   proxyToWorker(req, res, port, req.url);
 });
