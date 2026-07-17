@@ -248,6 +248,14 @@ server.on("upgrade", (req, socket, head) => {
     proxySocket.pipe(socket);
     socket.pipe(proxySocket);
 
+    // Properly propagate close events in both directions
+    proxySocket.on("close", () => {
+      if (socket.writable) socket.end();
+    });
+    socket.on("close", () => {
+      if (proxySocket.writable) proxySocket.end();
+    });
+
     proxySocket.on("error", () => socket.destroy());
     socket.on("error", () => proxySocket.destroy());
   });

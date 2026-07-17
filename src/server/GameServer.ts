@@ -111,6 +111,7 @@ export class GameServer {
   private hasReachedMaxPlayerCount: boolean = false;
 
   private endTurnIntervalID: ReturnType<typeof setInterval> | undefined;
+  private wsPingIntervalID: ReturnType<typeof setInterval> | undefined;
 
   private lastPingUpdate = 0;
 
@@ -986,6 +987,15 @@ export class GameServer {
       () => this.endTurn(),
       ServerEnv.turnIntervalMs(),
     );
+    // Send WebSocket-level ping frames every 15s to prevent reverse proxies
+    // (e.g. Render) from killing idle connections.
+    this.wsPingIntervalID = setInterval(() => {
+      for (const c of this.activeClients) {
+        if (c.ws.readyState === WebSocket.OPEN) {
+          c.ws.ping();
+        }
+      }
+    }, 15_000);
     this.activeClients.forEach((c) => {
       this.log.info("sending start message", {
         clientID: c.clientID,
@@ -1124,6 +1134,10 @@ export class GameServer {
     if (this.endTurnIntervalID) {
       clearInterval(this.endTurnIntervalID);
       this.endTurnIntervalID = undefined;
+    }
+    if (this.wsPingIntervalID) {
+      clearInterval(this.wsPingIntervalID);
+      this.wsPingIntervalID = undefined;
     }
     this.websockets.forEach((ws) => {
       if (ws.readyState === WebSocket.OPEN) {
