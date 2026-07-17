@@ -69,6 +69,31 @@ app.use("/api", (_req, res, next) => {
   next();
 });
 
+// Mock auth endpoints for self-hosted deployment
+app.post("/auth/refresh", (_req, res) => {
+  res.json({ jwt: "self-hosted-guest", expiresIn: 86400 });
+});
+
+app.post("/auth/crazygames", (_req, res) => {
+  res.json({ jwt: "self-hosted-guest", expiresIn: 86400 });
+});
+
+app.get("/users/@me", (_req, res) => {
+  res.json({
+    user: {},
+    player: {
+      publicId: "self-hosted",
+      adfree: false,
+      unlimitedRanked: false,
+      canCreatePublicLobbies: false,
+      flares: [],
+      achievements: { singleplayerMap: [] },
+      friends: [],
+      subscription: null,
+    },
+  });
+});
+
 // Start the master process
 export async function startMaster() {
   if (!cluster.isPrimary) {

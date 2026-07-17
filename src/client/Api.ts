@@ -561,17 +561,8 @@ export async function createNextLobby(
 }
 
 export function getApiBase() {
-  const domainname = getAudience();
-
-  if (domainname === "localhost") {
-    const apiDomain = process?.env?.API_DOMAIN;
-    if (apiDomain) {
-      return `https://${apiDomain}`;
-    }
-    return localStorage.getItem("apiHost") ?? "http://localhost:8787";
-  }
-
-  return `https://api.${domainname}`;
+  // Self-hosted: always use same origin
+  return window.location.origin;
 }
 
 export function getAudience() {
