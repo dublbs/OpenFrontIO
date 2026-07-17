@@ -1,7 +1,6 @@
 import cluster from "cluster";
 import crypto from "crypto";
 import express from "express";
-import rateLimit from "express-rate-limit";
 import http from "http";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -57,12 +56,6 @@ app.use(
 );
 
 app.set("trust proxy", 3);
-app.use(
-  rateLimit({
-    windowMs: 1000, // 1 second
-    max: 20, // 20 requests per IP per second
-  }),
-);
 
 app.use("/api", (_req, res, next) => {
   setNoStoreHeaders(res);
@@ -70,12 +63,41 @@ app.use("/api", (_req, res, next) => {
 });
 
 // Mock auth endpoints for self-hosted deployment
-app.post("/auth/refresh", (_req, res) => {
-  res.json({ jwt: "self-hosted-guest", expiresIn: 86400 });
+function generateGuestJwt(reqOrigin: string): string {
+  const header = btoa(JSON.stringify({ alg: "none", typ: "JWT" }));
+  const audience = reqOrigin
+    ? new URL(reqOrigin).hostname.split(".").slice(-2).join(".")
+    : "localhost";
+  const persistentId = crypto.randomUUID().replace(/-/g, "");
+  const persistentIdB64 = Buffer.from(
+    Uint8Array.from(persistentId.match(/.{2}/g)!.map((h) => parseInt(h, 16))),
+  )
+    .toString("base64url")
+    .padEnd(22, "=");
+  const now = Math.floor(Date.now() / 1000);
+  const payload = btoa(
+    JSON.stringify({
+      jti: crypto.randomUUID(),
+      sub: persistentIdB64,
+      iat: now,
+      iss: reqOrigin || "http://localhost:3000",
+      aud: audience,
+      exp: now + 86400,
+    }),
+  );
+  return `${header}.${payload}.`;
+}
+
+app.post("/auth/refresh", (req, res) => {
+  const origin = req.headers.origin || req.headers.referer?.replace(/\/$/, "");
+  const jwt = generateGuestJwt(origin || "");
+  res.json({ jwt, expiresIn: 86400 });
 });
 
-app.post("/auth/crazygames", (_req, res) => {
-  res.json({ jwt: "self-hosted-guest", expiresIn: 86400 });
+app.post("/auth/crazygames", (req, res) => {
+  const origin = req.headers.origin || req.headers.referer?.replace(/\/$/, "");
+  const jwt = generateGuestJwt(origin || "");
+  res.json({ jwt, expiresIn: 86400 });
 });
 
 app.get("/users/@me", (_req, res) => {
@@ -92,6 +114,129 @@ app.get("/users/@me", (_req, res) => {
       subscription: null,
     },
   });
+});
+
+function getWorkerPort(workerIndex: number): number {
+  return 3001 + workerIndex;
+}
+
+function getRandomWorkerPort(): number {
+  return getWorkerPort(Math.floor(Math.random() * ServerEnv.numWorkers()));
+}
+
+// Proxy HTTP requests to workers
+function proxyToWorker(
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+  port: number,
+  path: string,
+) {
+  const proxyReq = http.request(
+    {
+      hostname: "127.0.0.1",
+      port,
+      path,
+      method: req.method,
+      headers: {
+        ...req.headers,
+        host: `127.0.0.1:${port}`,
+      },
+    },
+    (proxyRes) => {
+      res.writeHead(proxyRes.statusCode || 502, proxyRes.headers);
+      proxyRes.pipe(res);
+    },
+  );
+
+  proxyReq.on("error", (err) => {
+    log.error(`Proxy error to port ${port}: ${err.message}`);
+    if (!res.headersSent) {
+      res.writeHead(502);
+      res.end("Worker unavailable");
+    }
+  });
+
+  req.pipe(proxyReq);
+}
+
+// Proxy /api/create_game to a random worker
+app.all("/api/create_game", (req, res) => {
+  const port = getRandomWorkerPort();
+  log.info(`Proxying /api/create_game to worker port ${port}`);
+  proxyToWorker(req, res, port, req.url);
+});
+
+app.all("/api/adminbot/create_game", (req, res) => {
+  const port = getRandomWorkerPort();
+  proxyToWorker(req, res, port, req.url);
+});
+
+// Proxy /api/game/:id/listing to a random worker
+app.all("/api/game/:id/listing", (req, res) => {
+  const port = getRandomWorkerPort();
+  proxyToWorker(req, res, port, req.url);
+});
+
+// Proxy /api/game/:id/* to a random worker
+app.all("/api/game/:id/*", (req, res) => {
+  const port = getRandomWorkerPort();
+  proxyToWorker(req, res, port, req.url);
+});
+
+// WebSocket upgrade handler — proxy /wN/ paths to the correct worker
+server.on("upgrade", (req, socket, head) => {
+  const url = req.url || "";
+  const match = url.match(/^\/w(\d+)(\/.*)?$/);
+  if (!match) {
+    log.warn(`WebSocket upgrade for unknown path: ${url}`);
+    socket.destroy();
+    return;
+  }
+
+  const workerIndex = parseInt(match[1]);
+  const workerPath = match[2] || "/";
+  const port = getWorkerPort(workerIndex);
+
+  log.info(`WebSocket upgrade: ${url} -> port ${port}`);
+
+  const proxyReq = http.request({
+    hostname: "127.0.0.1",
+    port,
+    path: workerPath,
+    method: "GET",
+    headers: {
+      ...req.headers,
+      host: `127.0.0.1:${port}`,
+    },
+  });
+
+  proxyReq.on("upgrade", (proxyRes, proxySocket, proxyHead) => {
+    // Build raw HTTP 101 response
+    let headers = `HTTP/1.1 101 Switching Protocols\r\n`;
+    for (let i = 0; i < proxyRes.rawHeaders.length; i += 2) {
+      headers += `${proxyRes.rawHeaders[i]}: ${proxyRes.rawHeaders[i + 1]}\r\n`;
+    }
+    headers += "\r\n";
+
+    socket.write(headers);
+
+    if (proxyHead.length > 0) {
+      socket.write(proxyHead);
+    }
+
+    proxySocket.pipe(socket);
+    socket.pipe(proxySocket);
+
+    proxySocket.on("error", () => socket.destroy());
+    socket.on("error", () => proxySocket.destroy());
+  });
+
+  proxyReq.on("error", (err) => {
+    log.error(`WebSocket proxy error to port ${port}: ${err.message}`);
+    socket.destroy();
+  });
+
+  proxyReq.end();
 });
 
 // Start the master process
@@ -154,7 +299,7 @@ export async function startMaster() {
     );
   });
 
-  const PORT = 3000;
+  const PORT = parseInt(process.env.PORT || "3000", 10);
   server.listen(PORT, () => {
     log.info(`Master HTTP server listening on port ${PORT}`);
   });

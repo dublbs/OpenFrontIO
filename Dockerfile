@@ -27,16 +27,6 @@ RUN npm ci --omit=dev
 FROM node:20-slim
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y nginx supervisor && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /var/log/supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-RUN rm -f /etc/nginx/sites-enabled/default
-
-COPY generate-nginx-upstream.sh /usr/local/bin/generate-nginx-upstream.sh
-RUN chmod +x /usr/local/bin/generate-nginx-upstream.sh
-
 COPY --from=prod-deps /usr/src/app/node_modules ./node_modules
 COPY package*.json ./
 COPY --from=build /usr/src/app/static ./static
@@ -49,6 +39,5 @@ ARG GIT_COMMIT=unknown
 RUN echo "$GIT_COMMIT" > static/commit.txt
 ENV GIT_COMMIT="$GIT_COMMIT"
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+EXPOSE 3000
+CMD ["npx", "tsx", "src/server/Server.ts"]

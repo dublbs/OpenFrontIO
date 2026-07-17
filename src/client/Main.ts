@@ -1179,6 +1179,11 @@ async function getTurnstileToken(): Promise<{
   token: string;
   createdAt: number;
 }> {
+  const sitekey = ClientEnv.turnstileSiteKey();
+  if (!sitekey) {
+    return { token: "", createdAt: Date.now() };
+  }
+
   // Wait for Turnstile script to load (handles slow connections)
   let attempts = 0;
   while (typeof window.turnstile === "undefined" && attempts < 100) {
